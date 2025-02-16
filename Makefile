@@ -7,7 +7,7 @@ build:
 	rye build
 
 tag:
-	sh bin/git-tag.sh
+	sh bin/git_tag.sh
 
 clean:
 	rm -rf dist/
