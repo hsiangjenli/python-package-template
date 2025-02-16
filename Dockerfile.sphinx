@@ -18,4 +18,4 @@ RUN pip install --upgrade pip && pip install \
     nbsphinx \
     toml
 
-CMD ["sh", "-c", "pip install -e . && cd docs && make $OUTPUT_FORMAT"]
+CMD ["sh", "-c", "pip install --no-deps -e . && cd docs && make $OUTPUT_FORMAT"]
