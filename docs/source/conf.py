@@ -1,5 +1,20 @@
+import shutil
+
+import emoji
 import toml
 
+shutil.copyfile("../../CHANGELOG.md", "CHANGELOG.md")
+
+
+def emojize_changelog(path="CHANGELOG.md", output_path="CHANGELOG.md"):
+    with open(path, "r", encoding="utf-8") as f:
+        content = f.read()
+    content = emoji.emojize(content, language="alias")
+    with open(output_path, "w", encoding="utf-8") as f:
+        f.write(content)
+
+
+emojize_changelog()
 # Read the pyproject.toml file
 with open("../../pyproject.toml", "r") as f:
     pyproject = toml.load(f)
@@ -29,6 +44,7 @@ extensions = [
     "sphinxcontrib.autodoc_pydantic",
     "nbsphinx",
     "sphinx_simplepdf",
+    "myst_parser",
 ]
 
 templates_path = ["_templates"]
