@@ -1,5 +1,6 @@
-# Activate the virtual environment
 
-```bash
-. .venv/bin/activate
+## Skills
+
+```shell
+npx skills add hsiangjenli/skills python
 ```

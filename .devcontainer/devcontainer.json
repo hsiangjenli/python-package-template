@@ -3,15 +3,20 @@
 {
 	"name": "Python 3",
 	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
-	"image": "ghcr.io/astral-sh/uv:python3.12-bookworm",
-	"features": {
-		"ghcr.io/devcontainers/features/github-cli:1": {},
-		"ghcr.io/e-gineering/devcontainer-features/rye:1": {},
-		"ghcr.io/devcontainers-extra/features/actions-runner:1": {},
-		"ghcr.io/devcontainers-extra/features/ruff:1": {},
-		"ghcr.io/devcontainers-extra/features/uv:1": {},
-		"ghcr.io/devcontainers-extra/features/yamllint:2": {}
-	}
+	"build": {
+		"dockerfile": "../.github/docker/Dockerfile.dev",
+		"context": ".."
+	},
+	"workspaceFolder": "/app",
+	"workspaceMount": "source=${localWorkspaceFolder},target=/app,type=bind,consistency=cached",
+	// "features": {
+	// 	"ghcr.io/devcontainers/features/github-cli:1": {},
+	// 	"ghcr.io/e-gineering/devcontainer-features/rye:1": {},
+	// 	"ghcr.io/devcontainers-extra/features/actions-runner:1": {},
+	// 	"ghcr.io/devcontainers-extra/features/ruff:1": {},
+	// 	"ghcr.io/devcontainers-extra/features/uv:1": {},
+	// 	"ghcr.io/devcontainers-extra/features/yamllint:2": {}
+	// }
 
 	// Features to add to the dev container. More info: https://containers.dev/features.
 	// "features": {},
