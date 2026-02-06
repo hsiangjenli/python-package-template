@@ -24,7 +24,7 @@ jobs:
           token: ${{ github.token }}
           tag: ${{ github.ref_name }}
 
-      # (3) Build PDF & HTML Documentation -------------------------------------------------------------------- #
+      # Build PDF & HTML Documentation -------------------------------------------------------------------- #
       - name: Build PDF Documentation
         uses: addnab/docker-run-action@v3
         with:
