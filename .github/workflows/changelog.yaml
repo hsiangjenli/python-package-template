@@ -29,14 +29,15 @@ jobs:
         uses: addnab/docker-run-action@v3
         with:
           image: hsiangjenli/sphinx-doc:2026-02-06
-          options: -v ${{ github.workspace }}:/workspace
+          options: -v ${{ github.workspace }}:/app
           run: |
             uv sync 
             uv build
             uv export --format cyclonedx1.5 --output-file sbom.json
             uv sync --group sphinx
-            cd docs && make simplepdf
-            cd docs && make html
+            cd docs
+            make simplepdf
+            make html
 
       # Save SBOM to Release ----------------------------------------------------------------------- #
       - name: Save SBOM to Release
