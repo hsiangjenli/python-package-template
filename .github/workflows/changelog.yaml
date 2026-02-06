@@ -4,14 +4,14 @@ on:
   push:
     tags:
       - v[0-9]+.[0-9]+.[0-9]+
+permissions:
+  contents: write
 jobs:
-
   deploy:
-
     runs-on: ubuntu-latest
-
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
-
       # Checkout the code ------------------------------------------------------------------------------ #
       - name: Checkout Code
         uses: actions/checkout@v2
@@ -24,39 +24,31 @@ jobs:
           token: ${{ github.token }}
           tag: ${{ github.ref_name }}
 
-      # Generate artifact for the release -------------------------------------------------------------- #
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: "3.10.14"
-
-      - name: Install Dependencies
-        run: python -m pip install --upgrade pip setuptools wheel build
-
-      # (1) Build .whl and .tar.gz files --------------------------------------------------------------- #
-      - name: Build Python Package
-        run: |
-          python -m build
-        env:
-          TAG_NAME: ${{ github.ref_name }}
-
-      # (2) Build PDF Documentation -------------------------------------------------------------------- #
+      # (3) Build PDF & HTML Documentation -------------------------------------------------------------------- #
       - name: Build PDF Documentation
         uses: addnab/docker-run-action@v3
         with:
-          image: hsiangjenli/sphinx-doc:2025-02-16
-          options: |
-            -v ${{ github.workspace }}:/workspace
-          run: pip install --no-deps -e . && cd docs && make simplepdf
+          image: hsiangjenli/sphinx-doc:2026-02-06
+          options: -v ${{ github.workspace }}:/workspace
+          run: |
+            uv sync 
+            uv build
+            uv export --format cyclonedx1.5 --output-file sbom.json
+            uv sync --group sphinx
+            cd docs
+            make simplepdf
+            make html
 
-      # (3) Build HTML Documentation ------------------------------------------------------------------- #
-      - name: Build HTML Documentation
-        uses: addnab/docker-run-action@v3
+      # Save SBOM to Release ----------------------------------------------------------------------- #
+      - name: Save SBOM to Release
+        uses: ncipollo/release-action@v1
         with:
-          image: hsiangjenli/sphinx-doc:2025-02-16
-          options: |
-            -v ${{ github.workspace }}:/workspace
-          run: pip install --no-deps -e . && cd docs && make html
+          allowUpdates: true
+          draft: false
+          name: ${{ github.ref_name }}
+          body: ${{ steps.changelog.outputs.changes }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+          artifacts: sbom.json
 
       # Create Release --------------------------------------------------------------------------------- #
       - name: Create Release
@@ -77,7 +69,7 @@ jobs:
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
           branch: main
-          commit_message: 'docs: update CHANGELOG.md for ${{ github.ref_name }} [skip ci]'
+          commit_message: "docs: update CHANGELOG.md for ${{ github.ref_name }} [skip ci]"
           file_pattern: CHANGELOG.md
 
       # Deploy ----------------------------------------------------------------------------------------- #

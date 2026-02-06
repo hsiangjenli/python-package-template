@@ -1,9 +1,16 @@
 FROM ghcr.io/astral-sh/uv:python3.12-bookworm-slim
 
 ENV UV_LINK_MODE=copy
+ENV OUTPUT_FORMAT=html
 
 WORKDIR /app
 
+COPY pyproject.toml README.md ./
+
 RUN apt-get update && \
-    apt-get install -y git && \
+    apt-get install -y git build-essential libgraphviz-dev make && \
     rm -rf /var/lib/apt/lists/*
+
+RUN uv sync --group sphinx
+
+CMD ["sh", "-c", "pip install --no-deps -e . && cd docs && make $OUTPUT_FORMAT"]
