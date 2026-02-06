@@ -35,9 +35,8 @@ jobs:
             uv build
             uv export --format cyclonedx1.5 --output-file sbom.json
             uv sync --group sphinx
-            cd docs
-            make simplepdf
-            make html
+            cd docs && make simplepdf
+            cd docs && make html
 
       # Save SBOM to Release ----------------------------------------------------------------------- #
       - name: Save SBOM to Release
