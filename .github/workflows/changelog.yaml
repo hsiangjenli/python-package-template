@@ -50,7 +50,11 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           artifacts: sbom.json
       
-        # Publish Packages ------------------------------------------------------------------------- #
+      # Install uv ---------------------------------------------------------------------------------- #
+      - name: Install uv
+        uses: astral-sh/setup-uv@v7
+      
+      # Publish Packages ------------------------------------------------------------------------- #
       - name: Publish Packages to PyPI
         run: uv publish
 
