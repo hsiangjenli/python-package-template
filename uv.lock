@@ -434,6 +434,47 @@ woff = [
 ]
 
 [[package]]
+name = "hsiangjenli-python-package-template"
+version = "0.0.11"
+source = { editable = "." }
+
+[package.dev-dependencies]
+dev = [
+    { name = "pre-commit" },
+    { name = "ruff" },
+]
+sphinx = [
+    { name = "autodoc-pydantic", extra = ["erdantic"] },
+    { name = "emoji" },
+    { name = "myst-parser" },
+    { name = "nbsphinx" },
+    { name = "pygraphviz" },
+    { name = "sphinx" },
+    { name = "sphinx-rtd-theme" },
+    { name = "sphinx-simplepdf" },
+    { name = "toml" },
+]
+
+[package.metadata]
+
+[package.metadata.requires-dev]
+dev = [
+    { name = "pre-commit", specifier = ">=4.5.1" },
+    { name = "ruff", specifier = ">=0.15.0" },
+]
+sphinx = [
+    { name = "autodoc-pydantic", extras = ["erdantic"], specifier = ">=2.2.0" },
+    { name = "emoji", specifier = ">=2.15.0" },
+    { name = "myst-parser", specifier = ">=5.0.0" },
+    { name = "nbsphinx", specifier = ">=0.9.8" },
+    { name = "pygraphviz", specifier = ">=1.14" },
+    { name = "sphinx", specifier = ">=9.1.0" },
+    { name = "sphinx-rtd-theme", specifier = ">=3.1.0" },
+    { name = "sphinx-simplepdf", specifier = ">=1.7.0" },
+    { name = "toml", specifier = ">=0.10.2" },
+]
+
+[[package]]
 name = "identify"
 version = "2.6.16"
 source = { registry = "https://pypi.org/simple" }
@@ -1026,47 +1067,6 @@ source = { registry = "https://pypi.org/simple" }
 sdist = { url = "https://files.pythonhosted.org/packages/f0/26/19cadc79a718c5edbec86fd4919a6b6d3f681039a2f6d66d14be94e75fb9/python_dotenv-1.2.1.tar.gz", hash = "sha256:42667e897e16ab0d66954af0e60a9caa94f0fd4ecf3aaf6d2d260eec1aa36ad6", size = 44221, upload-time = "2025-10-26T15:12:10.434Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/14/1b/a298b06749107c305e1fe0f814c6c74aea7b2f1e10989cb30f544a1b3253/python_dotenv-1.2.1-py3-none-any.whl", hash = "sha256:b81ee9561e9ca4004139c6cbba3a238c32b03e4894671e181b671e8cb8425d61", size = 21230, upload-time = "2025-10-26T15:12:09.109Z" },
-]
-
-[[package]]
-name = "python-package-template"
-version = "0.0.10"
-source = { editable = "." }
-
-[package.dev-dependencies]
-dev = [
-    { name = "pre-commit" },
-    { name = "ruff" },
-]
-sphinx = [
-    { name = "autodoc-pydantic", extra = ["erdantic"] },
-    { name = "emoji" },
-    { name = "myst-parser" },
-    { name = "nbsphinx" },
-    { name = "pygraphviz" },
-    { name = "sphinx" },
-    { name = "sphinx-rtd-theme" },
-    { name = "sphinx-simplepdf" },
-    { name = "toml" },
-]
-
-[package.metadata]
-
-[package.metadata.requires-dev]
-dev = [
-    { name = "pre-commit", specifier = ">=4.5.1" },
-    { name = "ruff", specifier = ">=0.15.0" },
-]
-sphinx = [
-    { name = "autodoc-pydantic", extras = ["erdantic"], specifier = ">=2.2.0" },
-    { name = "emoji", specifier = ">=2.15.0" },
-    { name = "myst-parser", specifier = ">=5.0.0" },
-    { name = "nbsphinx", specifier = ">=0.9.8" },
-    { name = "pygraphviz", specifier = ">=1.14" },
-    { name = "sphinx", specifier = ">=9.1.0" },
-    { name = "sphinx-rtd-theme", specifier = ">=3.1.0" },
-    { name = "sphinx-simplepdf", specifier = ">=1.7.0" },
-    { name = "toml", specifier = ">=0.10.2" },
 ]
 
 [[package]]
