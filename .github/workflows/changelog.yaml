@@ -50,14 +50,12 @@ jobs:
           body: ${{ steps.changelog.outputs.changes }}
           token: ${{ secrets.GITHUB_TOKEN }}
           artifacts: sbom.json
-      
-      # Install uv ---------------------------------------------------------------------------------- #
-      - name: Install uv
-        uses: astral-sh/setup-uv@v7
-      
+
       # Publish Packages ------------------------------------------------------------------------- #
-      - name: Publish Packages to PyPI
-        run: uv publish
+      - name: Publish package to PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          password: ${{ secrets.PYPI_API_TOKEN }}
 
       # Create Release --------------------------------------------------------------------------------- #
       - name: Create Release
